@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/lightblue"
+    tools:context=".RegisterActivity">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/nameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name"
+        android:inputType="textPersonName" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/emailEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:inputType="textEmailAddress" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/phoneNumberEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Phone Number"
+        android:inputType="phone" />
+
+    <TextView
+        android:id="@+id/dobTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Date of Birth" />
+
+    <DatePicker
+        android:id="@+id/datePicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:datePickerMode="spinner" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/passwordEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Register" />
+
+</LinearLayout>
