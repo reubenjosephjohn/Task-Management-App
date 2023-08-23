@@ -62,42 +62,10 @@ public class RegisterActivity extends AppCompatActivity {
         sendOTPIntent.putExtra("name", name);
         sendOTPIntent.putExtra("email", email);
         sendOTPIntent.putExtra("phoneNumber", phoneNumber);
+        sendOTPIntent.putExtra("password", password);
         sendOTPIntent.putExtra("dateOfBirth", calendar.getTime());
         startActivity(sendOTPIntent);
-        finish();
 
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        FirebaseUser user = mAuth.getCurrentUser();
 
-                        Map<String, Object> userData = new HashMap<>();
-                        userData.put("name", name);
-                        userData.put("Email", email);
-                        userData.put("phoneNumber", phoneNumber);
-                        userData.put("password", password);
-
-                        db.collection("users").document(phoneNumber)
-                                .set(userData)
-                                .addOnCompleteListener(task1 -> {
-                                    if (task1.isSuccessful()) {
-                                        // Registration successful
-                                        showToast("Registration successful");
-                                        Intent intent = new Intent(RegisterActivity.this, SendOTPActivity.class);
-                                        startActivity(intent);
-                                        finish();
-                                    } else {
-                                        // Registration failed
-                                        showToast("Registration failed: " + task1.getException());
-                                    }
-                                });
-                    }
-                });
     }
-
-
-
-                    private void showToast(String message) {
-                        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-                    }
 }

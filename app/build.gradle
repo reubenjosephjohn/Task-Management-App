@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    namespace 'com.example.task_management_app'
-    compileSdk 33
+    namespace "com.example.task_management_app"
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.example.task_management_app"
-        minSdk 26
-        targetSdk 33
+        minSdk 21
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -43,10 +43,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
-    implementation(platform("com.google.firebase:firebase-bom:32.2.2"))
-
-    // Add the dependency for the Firebase Authentication library
-    // When using the BoM, you don't specify versions in Firebase library dependencies
-    implementation("com.google.firebase:firebase-auth")
-
+    implementation platform('com.google.firebase:firebase-bom:31.0.0')
+    implementation 'com.google.firebase:firebase-auth:22.1.1'
+    implementation 'androidx.browser:browser:1.6.0' //help firebase to open the browser for reCAPTCHA verification.
 }

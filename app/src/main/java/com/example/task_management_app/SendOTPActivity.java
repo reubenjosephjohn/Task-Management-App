@@ -16,6 +16,8 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class SendOTPActivity extends AppCompatActivity {
@@ -25,15 +27,27 @@ public class SendOTPActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_otp);
 
+        Intent intent = getIntent();
+        String name = getIntent().getStringExtra("name");
+        String email = getIntent().getStringExtra("email");
+        String password = getIntent().getStringExtra("password");
+
+        String verificationId = getIntent().getStringExtra("verificationId");
+        Date dateOfBirth = (Date) getIntent().getSerializableExtra("dateOfBirth");
+        String phoneNumber = intent.getStringExtra("phoneNumber");
+
         //init
         final EditText inputMobile = findViewById(R.id.inputMobile);
         final Button buttonGetOTP = findViewById(R.id.buttonGetOTP);
         final ProgressBar progressBar = findViewById(R.id.progressBar);
 
+        inputMobile.setText(phoneNumber);
+
+
         buttonGetOTP.setOnClickListener(v -> {
             //toast error
             if(inputMobile.getText().toString().isEmpty()){
-                Toast.makeText(SendOTPActivity.this, "Enter mobile", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SendOTPActivity.this, "Enter phone number", Toast.LENGTH_SHORT).show();
                 return;
             }
             //set visibility
@@ -63,11 +77,20 @@ public class SendOTPActivity extends AppCompatActivity {
                                 public void onCodeSent(@NonNull String verificationId, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                                     progressBar.setVisibility(View.GONE);
                                     buttonGetOTP.setVisibility(View.VISIBLE);
+
                                     //action
                                     Intent intent = new Intent(getApplicationContext(),VerifyOTPActivity.class);
-                                    intent.putExtra("mobile",inputMobile.getText().toString());
+
+                                    intent.putExtra("phoneNumber",inputMobile.getText().toString());
+                                    intent.putExtra("name", name);
+                                    intent.putExtra("email", email);
+                                    intent.putExtra("password", password);
+                                    intent.putExtra("dateOfBirth", dateOfBirth);
+
                                     intent.putExtra("verificationId",verificationId);
                                     startActivity(intent);
+
+
                                 }
                             })
                             .build();

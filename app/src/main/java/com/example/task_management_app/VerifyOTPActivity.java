@@ -35,7 +35,7 @@ public class VerifyOTPActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private String verificationId;
 
-    private String name, email, phoneNumber;
+    private String name, email, phoneNumber, password;
     private Date dateOfBirth;
 
     @Override
@@ -52,6 +52,8 @@ public class VerifyOTPActivity extends AppCompatActivity {
         name = getIntent().getStringExtra("name");
         email = getIntent().getStringExtra("email");
         phoneNumber = getIntent().getStringExtra("phoneNumber");
+        password = getIntent().getStringExtra("password");
+        verificationId = getIntent().getStringExtra("verificationId");
         dateOfBirth = (Date) getIntent().getSerializableExtra("dateOfBirth");
     }
 
@@ -66,6 +68,7 @@ public class VerifyOTPActivity extends AppCompatActivity {
         textMobile = findViewById(R.id.textMobile);
         buttonVerify = findViewById(R.id.buttonVerify);
         progressBar = findViewById(R.id.progressBar);
+
     }
 
     private void setListener() {
@@ -156,14 +159,18 @@ public class VerifyOTPActivity extends AppCompatActivity {
         userData.put("email", email);
         userData.put("phoneNumber", phoneNumber);
         userData.put("dateOfBirth", dateOfBirth);
+        userData.put("password", password);
+
 
         db.collection("users").document(phoneNumber)
                 .set(userData)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        // Data stored successfully
+                        Toast.makeText(VerifyOTPActivity.this, "Verification successful! Registration completed.", Toast.LENGTH_SHORT).show();
+
                     } else {
                         // Error storing data
+                        Toast.makeText(VerifyOTPActivity.this, "Error storing data: " + task.getException(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
